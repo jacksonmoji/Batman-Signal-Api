@@ -52,6 +52,21 @@ class PanicService
 
     }
 
+    public function changePanicStatus($id) {
+
+        if(!$panic = $this->getPanicById($id)){
+            return False;
+        }
+
+        $panic->status = 0;
+        $panic->save();
+
+        Log::info(sprintf('Panic status was successfully updated by batman!'));
+
+        return true;
+
+    }
+
     public function getPanicById($id){
         return $this->panic->find($id)->first();
     }

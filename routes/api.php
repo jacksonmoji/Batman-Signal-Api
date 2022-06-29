@@ -18,6 +18,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('/sends', 'sendPanic');
             Route::post('/cancels', 'cancelPanic');
             Route::get('/history','panicHistory');
+            Route::post('/status', 'updatePanicStatus');
         });
     });
 });

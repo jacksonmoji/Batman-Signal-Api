@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Requests\Panic\SendPanicRequest;
 use App\Http\Requests\Panic\CancelPanicRequest;
+use App\Http\Request\Panic\UpdatePanicStatus;
 use App\Services\PanicService;
  
 
@@ -50,7 +51,7 @@ class PanicController extends ApiController
     {
         $data = $this->panicService->removePanic($request->validated());
         
-        if(! $data) {
+        if(!$data) {
             return $this->errorNotFound(self::PANIC_NOT_FOUND_MESSAGE);
         }
 
@@ -60,7 +61,6 @@ class PanicController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function panicHistory()
@@ -69,4 +69,23 @@ class PanicController extends ApiController
 
         return $this->respondWithSuccess(self::SUCCESS_MESSAGE, self::SUCCESS_CODE, $data);
     }
+
+        /**
+     * Update panic status.
+     *
+     * @param  UpdatePanicStatus  $request
+     * @return \Illuminate\Http\Response
+     */
+
+     public function updatePanicStatus(UpdatePanicStatus $request){
+
+        $data = $this->panicService->updatePanicStatus($request->validated());
+
+        if(!$data) {
+            return $this->errorNotFound(self::PANIC_NOT_FOUND_MESSAGE);
+        }
+
+        return $this->respondWithSuccess(self::SUCCESS_MESSAGE, self::SUCCESS_CODE, $data);
+
+     }
 }
